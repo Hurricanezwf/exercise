@@ -1,7 +1,8 @@
-/*================================================================
- * 功能描述:从文本中读取数据，然后删除所有的\符号，写入另一个文本
- * 备注：可以学习下如何设计log
- =================================================================*/
+/*====================================================================
+ * 功能描述：从文本中读取数据，然后删除所有的\符号，写入另一个文本
+ * 开发环境：Windows and Notepad++ and MinGW
+ * 备    注：1) 可以学习下如何设计出具有可变参数的函数，改变输出颜色
+ =====================================================================*/
 
 #include <vector>
 #include <cstring>
@@ -40,14 +41,13 @@ typedef enum tagEmTextColor
 	TEXT_GREY			= 8
 }EmTextColor;
 
-void LogHint(const char *content, ...);//打印无错日志
-void LogErr(const char *content, ...);//打印有错日志
-void SetTextColor(EmTextColor emTextColor);//设置打印文字颜色
+void LogHint(const char *content, ...);     //打印无错日志
+void LogErr(const char *content, ...);      //打印有错日志
+void SetTextColor(EmTextColor emTextColor); //设置打印文字颜色
 
 
 int main(int argc, char* argv[])
 {   
-	//check number of parameters
 	if( argc <= 1 )
 	{
 		PrintErrMsg("[main]Lack of file path!");
@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 	
 	LogHint("[main]:You got file path : %s", argv[1]);
 	
-	ifstream ifs;//for reading file //*** remember to close ***//
+	ifstream ifs;
 	ifs.open(argv[1], ifstream::in | ifstream::binary);
 	if( ifs.fail() )
 	{
@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 	
-	ofstream ofs;//for writing file  //*** remember to close ***//
+	ofstream ofs;
 	ofs.open(OUTPUT_FILE_PATH, ofstream::app | ofstream::binary);
 	if( ofs.fail() )
 	{
@@ -133,7 +133,6 @@ int main(int argc, char* argv[])
 	ifs.close();
 	ofs.close();
 	
-	//system("pause");
     return 0;
 }
 
