@@ -1,8 +1,8 @@
 /**********************************************
- * 描述:			KMP算法实现
- * 作者:			Hurricanezwf
- * 时间:			2014.6.16  20:40
- * 参考链接:		http://kb.cnblogs.com/page/176818/
+ * 描述:            KMP算法实现
+ * 作者:            Hurricanezwf
+ * 时间:            2014.6.16  20:40
+ * 参考链接:        http://kb.cnblogs.com/page/176818/
  **********************************************/
 #include <iostream>
 #include <cstdio>
@@ -27,7 +27,7 @@ int main()
     T[i] = i;
   }
   
-  getT(mode_string, T);					//set array------T
+  getT(mode_string, T);                 //set array------T
   print(T, string_size);
 
   char buff[2000]="\0";
@@ -38,31 +38,31 @@ int main()
   }
   else{
     while(fgets(buff, 2000, pFile) != NULL){
-	    cout<<buff<<endl;
+        cout<<buff<<endl;
     }
     fclose(pFile);
   }
 
-  int count = 0;							//记录总匹配数
+  int count = 0;                            //记录总匹配数
   int length = strlen(buff);
-  int j = 0;								//j:[0, string_size)
+  int j = 0;                                //j:[0, string_size)
   i = 0;
 
   while(i<length){
-	  if(buff[i]!=mode_string[j]){			//不匹配
-		  if(0 == j){
-			  i++;						//已匹配数为0
-		  }else{
-			  j = T[j];						//已匹配数不为0
-		  }
-	  }else{								 //有匹配
-		  i++;
-		  j++;
-		  if(j ==  string_size){				 //完全匹配了
-			  j = 0;
-			  count++;
-		  }
-	  }
+      if(buff[i]!=mode_string[j]){          //不匹配
+          if(0 == j){
+              i++;                      //已匹配数为0
+          }else{
+              j = T[j];                     //已匹配数不为0
+          }
+      }else{                                 //有匹配
+          i++;
+          j++;
+          if(j ==  string_size){                 //完全匹配了
+              j = 0;
+              count++;
+          }
+      }
   }
   cout<<"共有"<<count<<"个词匹配"<<endl;
   delete[] T;
@@ -70,9 +70,9 @@ int main()
 }
 
 /*****************************************
- * Description:    	get array of T
- * Parameters:    	str:	mode string
- *					T:		array		
+ * Description:     get array of T
+ * Parameters:      str:    mode string
+ *                  T:      array       
  *****************************************/
 void getT(string str, int *T)
 {
@@ -94,14 +94,14 @@ void getT(string str, int *T)
 }
 
 /****************************************
- * Descrpiton:	print array----T
- * Parameters:	*T:		pointer to array
- *				size:	size of the array
+ * Descrpiton:  print array----T
+ * Parameters:  *T:     pointer to array
+ *              size:   size of the array
  ***************************************/
 void print(int *T, int size)
 {
   for(int i=0; i<size; i++){
-  	cout<<T[i]<<"  ";
+    cout<<T[i]<<"  ";
   }
   cout<<endl;
 }
