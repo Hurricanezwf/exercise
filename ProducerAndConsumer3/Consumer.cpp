@@ -60,7 +60,18 @@ int main()
     int count = 0;
     while( !stop && (count < 20) ){
         sleep(1);
-        sem_wait(&ptr->store_num);
+        
+        //set timeout
+        struct timespec timeout;
+        time_t tm = time(NULL);
+        timeout.tv_sec = tm + 10;
+        timeout.tv_nsec = 0;
+        
+        sem_timedwait(&ptr->store_num, &timeout);
+        if( ETIMEDOUT == errno ){
+            cout<<"timeout!\n";
+            break;
+        }
         sem_wait(&ptr->mutex);
         if( ptr->consume_index >= MAX_MSG_NUM ){
             ptr->consume_index = 0;

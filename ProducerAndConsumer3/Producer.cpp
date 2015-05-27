@@ -29,6 +29,7 @@ struct tShm
 
 void ProcessSigInt(int signo);
 
+static bool stop = false;
 int main()
 {
     signal(SIGINT, ProcessSigInt);
@@ -67,7 +68,7 @@ int main()
     memset(ptr->data, 0, sizeof(ptr->data));
 
     //start produce
-    while(true){
+    while(!stop){
         usleep(10000);
         sem_wait(&ptr->empty_num);
         sem_wait(&ptr->mutex);
@@ -79,11 +80,6 @@ int main()
         sem_post(&ptr->mutex);
         sem_post(&ptr->store_num);
     }
-
-    for(int i = 0; i < MAX_MSG_NUM; i++){
-        cout<<ptr->data[i]<<endl;
-    }
-    cout<<"print finished!\n";
 
     sem_destroy(&ptr->store_num);
     sem_destroy(&ptr->empty_num);
@@ -98,7 +94,6 @@ int main()
 void ProcessSigInt(int signo)
 {
     cout<<"receive SIGINT\n";
-
+    stop = true;
     shm_unlink(SHM_NAME);
-    exit(0);
 }
